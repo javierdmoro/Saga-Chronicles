@@ -1,7 +1,7 @@
 {
   "name": "Saga Chronicle",
   "short_name": "SagaChronicle",
-  "description": "Un juego de rol de texto ambientado en crónicas nórdicas medievales.",
+  "description": "Un juego de rol de texto ambientado en crónicas medievales.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#1c1917",
