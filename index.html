@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#292524" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="apple-touch-icon" href="./icon-192.png" />
+    <link rel="manifest" href="manifest.json" />
+    <title>Saga Chronicle</title>
+    <script type="module" crossorigin src="./assets/index-B9HUyBse.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BzbzKfFJ.css">
+  </head>
+  <body class="bg-[#1c1917] text-[#f2e9d0] select-none">
+    <div id="root"></div>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('pwabuilder-sw.js')
+            .then((reg) => console.log('Service Worker registrado con éxito:', reg.scope))
+            .catch((err) => console.error('Fallo al registrar Service Worker:', err));
+        });
+      }
+    </script>
+  </body>
+</html>
+
