@@ -9,12 +9,12 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "https://javierdmoro.github.io/icon-512.png",
+      "src": "assets/icons/launchericon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "https://javierdmoro.github.io/icon-192.png",
+      "src": "assets/icons/launchericon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     }
