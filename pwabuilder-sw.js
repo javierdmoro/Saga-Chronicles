@@ -57,3 +57,84 @@ self.addEventListener('fetch', (event) => {
     })
   );
 });
+
+// ==========================================
+// PWA PUSH NOTIFICATIONS, BACKGROUND & PERIODIC SYNC
+// ==========================================
+
+self.addEventListener('push', (event) => {
+  let data = { title: 'Saga Chronicle', body: 'Un desafío rúnico te espera en el Yggdrasil.' };
+  if (event.data) {
+    try {
+      data = event.data.json();
+    } catch (e) {
+      data = { title: 'Saga Chronicle', body: event.data.text() };
+    }
+  }
+
+  const options = {
+    body: data.body,
+    icon: './icon-192.png',
+    badge: './icon-192.png',
+    vibrate: [100, 50, 100],
+    data: {
+      dateOfArrival: Date.now(),
+      primaryKey: 1
+    },
+    actions: [
+      { action: 'explore', title: '🧙 Entrar al Gremio' },
+      { action: 'close', title: 'Cerrar' }
+    ]
+  };
+
+  event.waitUntil(
+    self.registration.showNotification(data.title, options)
+  );
+});
+
+self.addEventListener('notificationclick', (event) => {
+  const notification = event.notification;
+  const action = event.action;
+
+  if (action === 'close') {
+    notification.close();
+  } else {
+    event.waitUntil(
+      self.clients.matchAll({ type: 'window' }).then((windowClients) => {
+        for (let i = 0; i < windowClients.length; i++) {
+          const client = windowClients[i];
+          if (client.url === '/' && 'focus' in client) {
+            return client.focus();
+          }
+        }
+        if (self.clients.openWindow) {
+          return self.clients.openWindow('/');
+        }
+      })
+    );
+    notification.close();
+  }
+});
+
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'saga-sync-pending') {
+    event.waitUntil(
+      self.registration.showNotification('Saga Chronicle Sync', {
+        body: 'Sincronización en segundo plano completada con éxito. Datos del cofre resguardados.',
+        icon: './icon-192.png'
+      })
+    );
+  }
+});
+
+self.addEventListener('periodicsync', (event) => {
+  if (event.tag === 'saga-periodic-update') {
+    event.waitUntil(
+      self.registration.showNotification('Saga Chronicle Segundo Plano', {
+        body: 'Actualizaciones periódicas de eventos sincronizadas en segundo plano.',
+        icon: './icon-192.png'
+      })
+    );
+  }
+});
+
